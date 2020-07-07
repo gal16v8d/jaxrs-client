@@ -42,7 +42,7 @@ public class ProxyClientImpl implements ProxyClient {
                 log.debug("Client with hashCode {} closed", hash);
             }
         } catch (Exception e) {
-        	log.debug("Error at closing a JaxClient", e);
+            log.debug("Error at closing a JaxClient", e);
         }
     }
 

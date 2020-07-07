@@ -10,7 +10,6 @@ import co.com.gsdd.jaxrs.client.impl.DefaultResponseHandler;
 import co.com.gsdd.jaxrs.client.util.FileNameUtils;
 import lombok.Getter;
 
-
 @Getter
 public class RestCallParams {
 

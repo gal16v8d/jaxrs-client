@@ -59,7 +59,7 @@ public class JaxClient implements HTTPClient {
     }
 
     protected Response invokePost(RestCallParams params) {
-    	log.debug("About to execute POST method for target {} with payload -> {}", params.getTarget(),
+        log.debug("About to execute POST method for target {} with payload -> {}", params.getTarget(),
                 params.getPayload());
         try {
             return getInvocationBuilder(params).post(Entity.entity(params.getPayload(), params.getAcceptedMimeType()));
@@ -87,7 +87,7 @@ public class JaxClient implements HTTPClient {
 
     protected Response invokePut(RestCallParams params) {
         try {
-        	log.debug("About to execute PUT method for target {} with payload -> {}", params.getTarget(),
+            log.debug("About to execute PUT method for target {} with payload -> {}", params.getTarget(),
                     params.getPayload());
             return getInvocationBuilder(params).put(Entity.entity(params.getPayload(), params.getAcceptedMimeType()));
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class JaxClient implements HTTPClient {
 
     protected Response invokePatch(RestCallParams params) {
         try {
-        	log.debug("About to execute PATCH method for target {} with payload -> {}", params.getTarget(),
+            log.debug("About to execute PATCH method for target {} with payload -> {}", params.getTarget(),
                     params.getPayload());
             return getInvocationBuilder(params)
                     .build("PATCH", Entity.entity(params.getPayload(), params.getAcceptedMimeType())).invoke();
@@ -142,7 +142,7 @@ public class JaxClient implements HTTPClient {
 
     protected Response invokeDelete(RestCallParams params) {
         try {
-        	log.debug("About to execute DELETE method for target {}", params.getTarget());
+            log.debug("About to execute DELETE method for target {}", params.getTarget());
             return getInvocationBuilder(params).delete();
         } catch (Exception e) {
             String message = String.format(ERROR_EXECUTING, "DELETE", params.getTarget(), e.getMessage());
@@ -176,7 +176,7 @@ public class JaxClient implements HTTPClient {
                 log.debug("Client with hashCode {} closed", hash);
             }
         } catch (Exception e) {
-        	log.debug("Error at closing a JaxClient", e);
+            log.debug("Error at closing a JaxClient", e);
         }
     }
 
@@ -217,11 +217,11 @@ public class JaxClient implements HTTPClient {
             webTarget = getClient().target(params.getTarget());
             return webTarget.request(params.getAcceptedMimeType());
         } catch (Exception e) {
-        	log.error("Failed creating webtarget for {} closing client and instantiation a new one",
-                    params.getTarget(), e);
+            log.error("Failed creating webtarget for {} closing client and instantiation a new one", params.getTarget(),
+                    e);
             throw new HTTPClientException("Error creating webtarget request", e);
         } finally {
-        	log.debug("Webtarget returned in {} milliseconds", (System.currentTimeMillis() - starts));
+            log.debug("Webtarget returned in {} milliseconds", (System.currentTimeMillis() - starts));
         }
     }
 
@@ -238,7 +238,7 @@ public class JaxClient implements HTTPClient {
                 try {
                     response.close();
                 } catch (Exception e) {
-                	log.debug("Error at closing JaxClient response", e);
+                    log.debug("Error at closing JaxClient response", e);
                 }
             }
             if (Objects.nonNull(params)) {
