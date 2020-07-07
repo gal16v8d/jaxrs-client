@@ -1,7 +1,7 @@
 package co.com.gsdd.jaxrs.client.impl;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
@@ -16,7 +16,6 @@ public class Authenticator implements ClientRequestFilter {
     private static final String BASIC = "BASIC ";
     private static final String COLON = ":";
     private static final String AUTHORIZATION = "Authorization";
-    private static final String UTF_8 = "UTF-8";
 
     private final String user;
     private final String password;
@@ -29,11 +28,7 @@ public class Authenticator implements ClientRequestFilter {
 
     private String getBasicAuthentication() {
         String token = this.user + COLON + this.password;
-        try {
-            return BASIC + DatatypeConverter.printBase64Binary(token.getBytes(UTF_8));
-        } catch (UnsupportedEncodingException ex) {
-            throw new IllegalStateException("Cannot encode with UTF-8 the basic auth", ex);
-        }
+        return BASIC + DatatypeConverter.printBase64Binary(token.getBytes(StandardCharsets.UTF_8));
     }
 
 }

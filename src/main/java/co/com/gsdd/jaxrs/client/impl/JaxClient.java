@@ -1,7 +1,5 @@
 package co.com.gsdd.jaxrs.client.impl;
 
-import java.util.Objects;
-
 import javax.annotation.PreDestroy;
 import javax.enterprise.inject.Default;
 import javax.ws.rs.client.Client;
@@ -191,10 +189,10 @@ public class JaxClient implements HTTPClient {
      */
     private Client initClient() {
         long starts = System.currentTimeMillis();
-        Client client = ClientBuilder.newClient();
-        log.debug("Client with hashCode {} returned in {} milliseconds", client.hashCode(),
+        Client newClient = ClientBuilder.newClient();
+        log.debug("Client with hashCode {} returned in {} milliseconds", newClient.hashCode(),
                 (System.currentTimeMillis() - starts));
-        return client;
+        return newClient;
     }
 
     protected Client getClient() {
@@ -241,9 +239,7 @@ public class JaxClient implements HTTPClient {
                     log.debug("Error at closing JaxClient response", e);
                 }
             }
-            if (Objects.nonNull(params)) {
-                closeClient();
-            }
+            closeClient();
         }
     }
 
