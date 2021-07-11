@@ -11,10 +11,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import co.com.gsdd.jaxrs.client.exception.HTTPClientException;
 
-public class FileNameUtilsTest {
+class FileNameUtilsTest {
 
     @Test
-    public void replaceIllegalCharsTest() {
+    void replaceIllegalCharsTest() {
         URI uri = FileNameUtils.removeUnsupportedCharactersFromPath(
                 "http://localhost//downloads///videos/MediaFolder[This is a sample(720p)]");
         Assertions.assertEquals("http://localhost/downloads/videos/MediaFolder%5BThis%20is%20a%20sample(720p)%5D",
@@ -25,7 +25,7 @@ public class FileNameUtilsTest {
     @NullSource
     @EmptySource
     @ValueSource(strings = { "   " })
-    public void invalidUriShouldLaunchHttpClientExcTest(String uri) {
+    void invalidUriShouldLaunchHttpClientExcTest(String uri) {
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class,
                 () -> FileNameUtils.removeUnsupportedCharactersFromPath(uri));
         Assertions.assertEquals("The requested uri -> '" + uri + "' is not valid.", e.getMessage());

@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import co.com.gsdd.jaxrs.client.exception.HTTPClientException;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultResponseHandlerTest {
+class DefaultResponseHandlerTest {
 
     private static final String MOCKED_ERROR = "Mocked error";
     @Spy
@@ -31,19 +31,19 @@ public class DefaultResponseHandlerTest {
     private StatusType responseStatus;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void launchExcWhenResponseIsNullTest() {
+    void launchExcWhenResponseIsNullTest() {
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class,
                 () -> defaultResponseHandler.processResponse(logger, null));
         Assertions.assertEquals("Service responses is null.", e.getMessage());
     }
 
     @Test
-    public void mustlaunchExcWhenResponseIsBadTest() {
+    void mustlaunchExcWhenResponseIsBadTest() {
         Mockito.when(response.getStatus()).thenReturn(Status.INTERNAL_SERVER_ERROR.getStatusCode());
         Mockito.when(response.getStatusInfo()).thenReturn(responseStatus);
         Mockito.when(response.readEntity(String.class)).thenReturn(MOCKED_ERROR);
@@ -54,7 +54,7 @@ public class DefaultResponseHandlerTest {
     }
 
     @Test
-    public void mustlaunchExcWhenResponseIsBadCanNotReadEntityTest() {
+    void mustlaunchExcWhenResponseIsBadCanNotReadEntityTest() {
         Mockito.when(response.getStatus()).thenReturn(Status.INTERNAL_SERVER_ERROR.getStatusCode());
         Mockito.when(response.getStatusInfo()).thenReturn(responseStatus);
         Mockito.when(response.readEntity(String.class)).thenReturn(null);
@@ -66,7 +66,7 @@ public class DefaultResponseHandlerTest {
     }
 
     @Test
-    public void mustNotlaunchExcWhenResponseIsGoodTest() {
+    void mustNotlaunchExcWhenResponseIsGoodTest() {
         Mockito.when(response.getStatus()).thenReturn(Status.OK.getStatusCode());
         Assertions.assertDoesNotThrow(() -> defaultResponseHandler.processResponse(logger, response));
         Mockito.verify(logger).debug(Mockito.eq("Service responses with status -> {}"), Mockito.anyInt());

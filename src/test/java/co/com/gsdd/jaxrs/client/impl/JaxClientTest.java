@@ -25,7 +25,7 @@ import co.com.gsdd.jaxrs.client.builder.RestCallParams;
 import co.com.gsdd.jaxrs.client.builder.RestCallParams.RestCallBuilder;
 import co.com.gsdd.jaxrs.client.exception.HTTPClientException;
 
-public class JaxClientTest {
+class JaxClientTest {
 
     private static final String CLIENT_RESPONSE = "Client response";
     private static final String ERROR = "Error";
@@ -56,8 +56,8 @@ public class JaxClientTest {
     private StatusType responseStatus;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
         Mockito.doReturn(wsClientMock).when(jaxClientSpy).getClient();
         Mockito.doReturn(wsClientMock).when(wsClientMock).property(Mockito.anyString(), Mockito.any());
         Mockito.when(wsClientMock.target(Mockito.any(URI.class))).thenReturn(webTargetMock);
@@ -65,7 +65,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTest_shouldGetExistingObject_whenNoResponseType() throws Exception {
+    void getTest_shouldGetExistingObject_whenNoResponseType() throws Exception {
         arrangeResponseMock(Status.OK.getStatusCode(), null);
         Mockito.when(builderMock.get()).thenReturn(response);
         Response response = jaxClientSpy.invokeGet(new RestCallBuilder(LOCAL_DYNAMIC_PATH.toString()).errorMsg(ERROR)
@@ -74,7 +74,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTest_shouldGetAndRetrieveExistingObject_whenNoResponseType() throws Exception {
+    void getTest_shouldGetAndRetrieveExistingObject_whenNoResponseType() throws Exception {
         arrangeResponseMock(Status.OK.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.get()).thenReturn(response);
         ServiceResponse serviceResponse = jaxClientSpy.get(
@@ -85,7 +85,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTest_shouldGetAndRetrieveExistingObjectGeneric_whenNoResponseType() throws Exception {
+    void getTest_shouldGetAndRetrieveExistingObjectGeneric_whenNoResponseType() throws Exception {
         arrangeResponseMock(Status.OK.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.get()).thenReturn(response);
         ServiceResponse serviceResponse = jaxClientSpy.get(
@@ -96,7 +96,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTest_shouldGetAndNoReturnEntity() throws Exception {
+    void getTest_shouldGetAndNoReturnEntity() throws Exception {
         arrangeResponseMock(Status.OK.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.get()).thenReturn(response);
         jaxClientSpy.get(
@@ -107,7 +107,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTest_shouldGetAndRetrieveExistingObject_whenUnauthorized() throws Exception {
+    void getTest_shouldGetAndRetrieveExistingObject_whenUnauthorized() throws Exception {
         arrangeResponseMock(Status.UNAUTHORIZED.getStatusCode(), null);
         Mockito.when(builderMock.get()).thenReturn(response);
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class, () -> jaxClientSpy
@@ -116,7 +116,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTest_shouldGetAndRetrieveExistingObject_whenNoClass() throws Exception {
+    void getTest_shouldGetAndRetrieveExistingObject_whenNoClass() throws Exception {
         arrangeResponseMock(Status.OK.getStatusCode(), null);
         Mockito.when(builderMock.get()).thenReturn(response);
         Class<?> clazz = null;
@@ -126,7 +126,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void getTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
+    void getTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
         Mockito.when(builderMock.get()).thenThrow(new ProcessingException(ERROR));
         Class<?> clazz = null;
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class, () -> jaxClientSpy
@@ -136,7 +136,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void postTest_shouldCreateObject_whenInformationIsValid() throws Exception {
+    void postTest_shouldCreateObject_whenInformationIsValid() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         Response serverResponse = arrangeResponse(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.post(Mockito.any())).thenReturn(serverResponse);
@@ -147,7 +147,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void postTest_shouldCreateAndRetrieveObject_whenNoResponseType() throws Exception {
+    void postTest_shouldCreateAndRetrieveObject_whenNoResponseType() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.post(Mockito.any())).thenReturn(response);
@@ -159,7 +159,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void postTest_shouldCreateAndRetrieveObjectGeneric_whenNoResponseType() throws Exception {
+    void postTest_shouldCreateAndRetrieveObjectGeneric_whenNoResponseType() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.post(Mockito.any())).thenReturn(response);
@@ -171,7 +171,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void postTest_shouldPostAndNoReturnEntity() throws Exception {
+    void postTest_shouldPostAndNoReturnEntity() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.OK.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.post(Mockito.any())).thenReturn(response);
@@ -183,7 +183,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void postTest_shouldNotCreateObject_whenWrongInformation() throws Exception {
+    void postTest_shouldNotCreateObject_whenWrongInformation() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.INTERNAL_SERVER_ERROR.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.post(Mockito.any())).thenReturn(response);
@@ -195,7 +195,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void postTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
+    void postTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         Mockito.when(builderMock.post(Mockito.any())).thenThrow(new ProcessingException(ERROR));
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class,
@@ -207,7 +207,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void putTest_shouldUpdateObject_whenInformationIsValid() throws Exception {
+    void putTest_shouldUpdateObject_whenInformationIsValid() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         Response serverResponse = arrangeResponse(Status.OK.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.put(Mockito.any())).thenReturn(serverResponse);
@@ -218,7 +218,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void putTest_shouldUpdateAndRetrieveObject_whenNoResponseType() throws Exception {
+    void putTest_shouldUpdateAndRetrieveObject_whenNoResponseType() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.put(Mockito.any())).thenReturn(response);
@@ -230,7 +230,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void putTest_shouldUpdateAndRetrieveObjectGeneric_whenNoResponseType() throws Exception {
+    void putTest_shouldUpdateAndRetrieveObjectGeneric_whenNoResponseType() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.put(Mockito.any())).thenReturn(response);
@@ -242,7 +242,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void putTest_shouldPutAndNoReturnEntity() throws Exception {
+    void putTest_shouldPutAndNoReturnEntity() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.OK.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.put(Mockito.any())).thenReturn(response);
@@ -254,7 +254,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void putTest_shouldNotUpdateObject() throws Exception {
+    void putTest_shouldNotUpdateObject() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.INTERNAL_SERVER_ERROR.getStatusCode(), null);
         Mockito.when(builderMock.put(Mockito.any())).thenReturn(response);
@@ -266,7 +266,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void putTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
+    void putTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         Mockito.when(builderMock.put(Mockito.any())).thenThrow(new ProcessingException(ERROR));
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class,
@@ -278,7 +278,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void patchTest_shouldUpdateObject_whenInformationIsValid() throws Exception {
+    void patchTest_shouldUpdateObject_whenInformationIsValid() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         Response serverResponse = arrangeResponse(Status.OK.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.build(Mockito.anyString(), Mockito.any())).thenReturn(invocation);
@@ -290,7 +290,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void patchTest_shouldUpdateAndRetrieveObject_whenNoResponseType() throws Exception {
+    void patchTest_shouldUpdateAndRetrieveObject_whenNoResponseType() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.build(Mockito.anyString(), Mockito.any())).thenReturn(invocation);
@@ -303,7 +303,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void patchTest_shouldUpdateAndRetrieveObjectGeneric_whenNoResponseType() throws Exception {
+    void patchTest_shouldUpdateAndRetrieveObjectGeneric_whenNoResponseType() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.CREATED.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.build(Mockito.anyString(), Mockito.any())).thenReturn(invocation);
@@ -316,7 +316,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void patchTest_shouldPatchAndNoReturnEntity() throws Exception {
+    void patchTest_shouldPatchAndNoReturnEntity() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.OK.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.build(Mockito.anyString(), Mockito.any())).thenReturn(invocation);
@@ -329,7 +329,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void patchTest_shouldNotUpdateObject() throws Exception {
+    void patchTest_shouldNotUpdateObject() throws Exception {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         arrangeResponseMock(Status.INTERNAL_SERVER_ERROR.getStatusCode(), serviceContentResponse);
         Mockito.when(builderMock.build(Mockito.anyString(), Mockito.any())).thenReturn(invocation);
@@ -342,7 +342,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void patchTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
+    void patchTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
         ServiceResponse serviceContentResponse = createServiceContentResponse();
         Mockito.when(builderMock.build(Mockito.anyString(), Mockito.any())).thenReturn(invocation);
         Mockito.when(invocation.invoke()).thenThrow(new ProcessingException(ERROR));
@@ -355,7 +355,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void deleteTest_shouldNotDeleteObject_whenInformationIsNotValid() throws Exception {
+    void deleteTest_shouldNotDeleteObject_whenInformationIsNotValid() throws Exception {
         Response serverResponse = arrangeResponse(Status.INTERNAL_SERVER_ERROR.getStatusCode(), null);
         Mockito.when(builderMock.delete()).thenReturn(serverResponse);
         Response response = jaxClientSpy
@@ -365,7 +365,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void deleteTest_shouldDeleteAndRetrieveObject() throws Exception {
+    void deleteTest_shouldDeleteAndRetrieveObject() throws Exception {
         arrangeResponseMock(Status.CREATED.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.delete()).thenReturn(response);
         ServiceResponse serviceResponse = jaxClientSpy
@@ -375,7 +375,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void deleteTest_shouldDeleteAndRetrieveObjectGeneric() throws Exception {
+    void deleteTest_shouldDeleteAndRetrieveObjectGeneric() throws Exception {
         arrangeResponseMock(Status.CREATED.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.delete()).thenReturn(response);
         ServiceResponse serviceResponse = jaxClientSpy.delete(
@@ -385,7 +385,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void deleteTest_shouldDeleteObject_whenNoResponseType() throws Exception {
+    void deleteTest_shouldDeleteObject_whenNoResponseType() throws Exception {
         arrangeResponseMock(Status.INTERNAL_SERVER_ERROR.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.delete()).thenReturn(response);
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class, () -> jaxClientSpy
@@ -394,7 +394,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void deleteTest_shouldDeleteAndNoReturnEntity() throws Exception {
+    void deleteTest_shouldDeleteAndNoReturnEntity() throws Exception {
         arrangeResponseMock(Status.OK.getStatusCode(), createServiceContentResponse());
         Mockito.when(builderMock.delete()).thenReturn(response);
         jaxClientSpy.delete(new RestCallBuilder(LOCAL_PATH.toString()).errorMsg(ERROR).build());
@@ -404,7 +404,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void deleteTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
+    void deleteTestShouldLaunchHttpClientExcWhenInvokeFailTest() {
         Mockito.when(builderMock.delete()).thenThrow(new ProcessingException(ERROR));
         HTTPClientException e = Assertions.assertThrows(HTTPClientException.class,
                 () -> jaxClientSpy.delete(new RestCallBuilder(LOCAL_PATH.toString()).errorMsg(ERROR).build()));
@@ -413,7 +413,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void testGetInvocationBuilder() {
+    void testGetInvocationBuilder() {
         Builder invocationBuilder = jaxClientSpy.getInvocationBuilder(
                 new RestCallBuilder(LOCAL_DYNAMIC_PATH.toString()).acceptedMimeType(APPLICATION_JSON).errorMsg(ERROR)
                         .responseHandler(new DefaultResponseHandler()).build());
@@ -421,7 +421,7 @@ public class JaxClientTest {
     }
 
     @Test
-    public void testGetInvocationBuilderHandlesException() {
+    void testGetInvocationBuilderHandlesException() {
         Mockito.when(webTargetMock.request(Mockito.anyString())).thenThrow(new RuntimeException("testFail"));
         Assertions.assertThrows(HTTPClientException.class,
                 () -> jaxClientSpy.getInvocationBuilder(new RestCallBuilder(LOCAL_DYNAMIC_PATH.toString())
