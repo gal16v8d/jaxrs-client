@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>co.com.gsdd.jaxrs</groupId>
+	<groupId>com.gsdd</groupId>
 	<artifactId>jaxrs-client</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.001</version>
@@ -24,7 +24,7 @@
 		<mvn.javadoc.plugin.version>3.1.1</mvn.javadoc.plugin.version>
 		<mvn.failsafe.plugin.version>3.0.0-M4</mvn.failsafe.plugin.version>
 		<mvn.surefire.plugin.version>3.0.0-M4</mvn.surefire.plugin.version>
-		<mvn.jacoco.plugin.version>0.8.5</mvn.jacoco.plugin.version>
+		<mvn.jacoco.plugin.version>0.8.7</mvn.jacoco.plugin.version>
 		<mvn.fmt.plugin.version>2.10.0</mvn.fmt.plugin.version>
 		<mvn.dependency.plugin.version>3.1.1</mvn.dependency.plugin.version>
 		<mvn.source.plugin.version>3.2.0</mvn.source.plugin.version>
@@ -47,10 +47,10 @@
 		<resteasy.version>3.0.14.Final</resteasy.version>
 
 		<!-- Gral dependencies -->
-		<lombok.version>1.18.20</lombok.version>
+		<lombok.version>1.18.22</lombok.version>
 		<javaee.api.version>8.0</javaee.api.version>
 		<commons.lang.version>3.8.1</commons.lang.version>
-		<slf4j.version>1.7.25</slf4j.version>
+		<slf4j.version>1.7.32</slf4j.version>
 	</properties>
 
 	<dependencies>
@@ -236,6 +236,9 @@
 						<groupId>net.revelc.code.formatter</groupId>
 						<artifactId>formatter-maven-plugin</artifactId>
 						<version>${mvn.fmt.plugin.version}</version>
+						<configuration>
+							<configFile>${project.basedir}/eclipse-java-google-style.xml</configFile>
+						</configuration>
 						<executions>
 							<execution>
 								<id>validate-code-format</id>
@@ -387,6 +390,9 @@
 						<groupId>net.revelc.code.formatter</groupId>
 						<artifactId>formatter-maven-plugin</artifactId>
 						<version>${mvn.fmt.plugin.version}</version>
+						<configuration>
+							<configFile>${project.basedir}/eclipse-java-google-style.xml</configFile>
+						</configuration>
 						<executions>
 							<execution>
 								<goals>
