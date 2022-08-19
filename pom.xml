@@ -41,15 +41,15 @@
 		<jacoco.it.reportPath.site>${project.reporting.outputDirectory}/jacoco-it</jacoco.it.reportPath.site>
 
 		<!-- Testing dependencies -->
-		<junit.version>5.8.2</junit.version>
-		<mockito.version>4.4.0</mockito.version>
+		<junit.version>5.9.0</junit.version>
+		<mockito.version>4.7.0</mockito.version>
 		<httpclient.version>4.5</httpclient.version>
 		<resteasy.version>3.0.14.Final</resteasy.version>
 
 		<!-- Gral dependencies -->
 		<lombok.version>1.18.24</lombok.version>
 		<javaee.api.version>8.0</javaee.api.version>
-		<commons.lang.version>3.9</commons.lang.version>
+		<commons.lang.version>3.12.0</commons.lang.version>
 		<slf4j.version>1.7.36</slf4j.version>
 	</properties>
 
