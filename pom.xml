@@ -41,8 +41,8 @@
 		<jacoco.it.reportPath.site>${project.reporting.outputDirectory}/jacoco-it</jacoco.it.reportPath.site>
 
 		<!-- Testing dependencies -->
-		<junit.version>5.9.0</junit.version>
-		<mockito.version>4.7.0</mockito.version>
+		<junit.version>5.9.1</junit.version>
+		<mockito.version>4.10.0</mockito.version>
 		<httpclient.version>4.5</httpclient.version>
 		<resteasy.version>3.0.14.Final</resteasy.version>
 
